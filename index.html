@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebração de Graduação — Eng. José Tchacala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Tenor+Sans&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #050810;
+    --navy2:  #0a0f1c;
+    --navy3:  #101828;
+    --steel:  #1a2a4a;
+    --blue:   #1a3a6e;
+    --blue-l: #2a5298;
+    --blue-p: #4a7acc;
+    --blue-glow: rgba(42,82,152,.35);
+    --silver: #7a9ac0;
+    --silver-l:#b0cae0;
+    --white:  #e8eef8;
+    --muted:  #5a7499;
+    --glow-b: rgba(42,82,152,.3);
+    --glow-b2: rgba(26,58,110,.45);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--navy);
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===================== SPLASH ===================== */
+  #splash {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 40% 40%, #0d1530 0%, #040710 70%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 9999; cursor: pointer;
+    transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+  #splash.hide { opacity:0; transform:scale(1.08); pointer-events:none; }
+
+  #splash::before {
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,42,74,.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,42,74,.25) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask: radial-gradient(ellipse at center, transparent 30%, black 80%);
+  }
+
+  .splash-particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+
+  .sp {
+    position:absolute;
+    border-radius:50%;
+    animation: sp-float linear infinite;
+    opacity:0;
+  }
+  @keyframes sp-float {
+    0%   { transform:translateY(110vh) rotate(0deg); opacity:0; }
+    8%   { opacity:.8; }
+    92%  { opacity:.8; }
+    100% { transform:translateY(-10vh) rotate(540deg); opacity:0; }
+  }
+
+  .splash-emblem {
+    position: relative;
+    width: clamp(140px, 35vw, 180px);
+    height: clamp(140px, 35vw, 180px);
+    animation: emblem-breathe 4s ease-in-out infinite;
+  }
+  @keyframes emblem-breathe {
+    0%,100% { transform:scale(1) rotate(-1deg); filter:drop-shadow(0 0 20px var(--glow-b)); }
+    50%      { transform:scale(1.04) rotate(1deg); filter:drop-shadow(0 0 40px var(--glow-b)) drop-shadow(0 0 70px var(--glow-b2)); }
+  }
+
+  .outer-ring {
+    position:absolute; inset:0;
+    border:1px solid rgba(42,82,152,.5);
+    border-radius:50%;
+    animation: ring-rotate 20s linear infinite;
+  }
+  @keyframes ring-rotate { to { transform:rotate(360deg); } }
+  .outer-ring::before {
+    content:''; position:absolute;
+    top:-3px; left:50%; transform:translateX(-50%);
+    width:6px; height:6px;
+    background:var(--blue-l); border-radius:50%;
+  }
+  .outer-ring::after {
+    content:''; position:absolute;
+    bottom:-3px; left:50%; transform:translateX(-50%);
+    width:4px; height:4px;
+    background:var(--blue-p); border-radius:50%;
+  }
+  .inner-ring {
+    position:absolute; inset:14px;
+    border:1px dashed rgba(42,82,152,.25);
+    border-radius:50%;
+    animation: ring-rotate 12s linear infinite reverse;
+  }
+
+  .splash-icon {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .splash-title {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(12px,3vw,16px);
+    font-weight:700;
+    letter-spacing:.55em;
+    color:var(--blue-p);
+    text-transform:uppercase;
+    margin-top:28px;
+    text-align:center;
+    animation:fade-up .9s ease .6s both;
+  }
+  .splash-name {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(22px,6vw,32px);
+    font-weight:900;
+    font-style:italic;
+    color:var(--white);
+    margin-top:6px;
+    text-align:center;
+    animation:fade-up .9s ease .9s both;
+    text-shadow: 0 0 40px rgba(42,82,152,.5);
+  }
+  .splash-divider {
+    width:80px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--blue-l),transparent);
+    margin:14px auto 0;
+    animation:fade-up .9s ease 1.1s both;
+  }
+  .splash-hint {
+    font-size:clamp(10px,2vw,12px);
+    letter-spacing:.3em;
+    color:var(--muted);
+    margin-top:14px;
+    text-transform:uppercase;
+    animation:fade-up .9s ease 1.3s both, blink 2.5s ease-in-out 2.5s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+  @keyframes fade-up {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .ripple {
+    position:absolute; border-radius:50%;
+    background:rgba(42,82,152,.2);
+    transform:scale(0);
+    animation:rip .8s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes rip { to { transform:scale(8); opacity:0; } }
+
+  /* ===================== INVITE ===================== */
+  #invite {
+    display:none;
+    min-height:100vh;
+    padding:24px 16px 60px;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(26,58,110,.1) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 100%, rgba(42,82,152,.07) 0%, transparent 45%),
+      linear-gradient(180deg, #040710 0%, #080f1e 50%, #040710 100%);
+  }
+  #invite.visible { display:block; animation:page-reveal 1s cubic-bezier(.4,0,.2,1) both; }
+  @keyframes page-reveal {
+    from { opacity:0; transform:translateY(28px) scale(.99); }
+    to   { opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  /* ---- CARD ---- */
+  .card {
+    max-width: 460px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .blueprint-header {
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--navy) 0%, var(--navy) 20%,
+      var(--blue-l) 20%, var(--blue-l) 21%,
+      transparent 21%, transparent 22%,
+      var(--blue-l) 22%, var(--blue-l) 23%,
+      transparent 23%, transparent 77%,
+      var(--blue-l) 77%, var(--blue-l) 78%,
+      transparent 78%, transparent 79%,
+      var(--blue-l) 79%, var(--blue-l) 80%,
+      var(--navy) 80%, var(--navy) 100%);
+    border-radius: 2px 2px 0 0;
+    margin-bottom: 0;
+  }
+
+  .card-inner {
+    background: linear-gradient(160deg, #0a1020 0%, #080e1c 50%, #0a1020 100%);
+    border: 1px solid rgba(42,82,152,.2);
+    border-top: none;
+    padding: 34px 26px 38px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(42,82,152,.06),
+      0 30px 80px rgba(0,0,0,.9),
+      inset 0 0 60px rgba(4,7,16,.6);
+  }
+
+  .card-inner::before {
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,42,74,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,42,74,.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+  }
+
+  .bracket {
+    position:absolute;
+    width:44px; height:44px;
+    border-color:rgba(42,82,152,.4);
+    border-style:solid;
+  }
+  .bracket.tl { top:10px; left:10px; border-width:2px 0 0 2px; }
+  .bracket.tr { top:10px; right:10px; border-width:2px 2px 0 0; }
+  .bracket.bl { bottom:10px; left:10px; border-width:0 0 2px 2px; }
+  .bracket.br { bottom:10px; right:10px; border-width:0 2px 2px 0; }
+  .bracket::after {
+    content:''; position:absolute;
+    width:5px; height:5px; background:var(--blue-l);
+    border-radius:50%;
+  }
+  .bracket.tl::after { top:-3px; left:-3px; }
+  .bracket.tr::after { top:-3px; right:-3px; }
+  .bracket.bl::after { bottom:-3px; left:-3px; }
+  .bracket.br::after { bottom:-3px; right:-3px; }
+
+  .blueprint-footer {
+    height:5px;
+    background: linear-gradient(90deg,
+      var(--navy) 0%, var(--navy) 20%,
+      var(--blue-l) 20%, var(--blue-l) 21%,
+      transparent 21%, transparent 79%,
+      var(--blue-l) 79%, var(--blue-l) 80%,
+      var(--navy) 80%, var(--navy) 100%);
+    border-radius: 0 0 2px 2px;
+  }
+
+  /* ---- HEADER ---- */
+  .header-eyebrow {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(8px,1.8vw,10px);
+    letter-spacing:.55em;
+    color:var(--blue-p);
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    opacity:.9;
+    position:relative; z-index:1;
+  }
+
+  /* ---- PHOTO ---- */
+  .photo-wrap {
+    position:relative;
+    width:clamp(110px,28vw,136px);
+    height:clamp(110px,28vw,136px);
+    margin:0 auto 20px;
+  }
+
+  .hex-frame {
+    width:100%; height:100%;
+    position:relative;
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    background:linear-gradient(135deg, var(--blue-l), var(--blue), var(--blue-l));
+    padding:3px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hex-inner {
+    width:100%; height:100%;
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    background:var(--navy2);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .photo-avatar {
+    width:100%; height:100%;
+    object-fit:cover;
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  }
+  .photo-silhouette {
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#0f1e3a,#080e1c);
+  }
+
+  .hex-orbit {
+    position:absolute; inset:-10px;
+    border:1px solid rgba(42,82,152,.3);
+    clip-path: polygon(50% 0%, 97% 25%, 97% 75%, 50% 100%, 3% 75%, 3% 25%);
+    animation: orbit-spin 15s linear infinite;
+  }
+  @keyframes orbit-spin { to { transform:rotate(360deg); } }
+
+  .eng-badge {
+    position:absolute;
+    bottom:-6px; right:-6px;
+    width:36px; height:36px;
+    background:linear-gradient(135deg, var(--blue), var(--blue) 60%, #0f2255);
+    border-radius:50%;
+    border:2px solid var(--navy2);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 16px var(--glow-b);
+    animation: badge-glow 3s ease-in-out infinite;
+  }
+  @keyframes badge-glow {
+    0%,100% { box-shadow:0 0 12px var(--glow-b); }
+    50%      { box-shadow:0 0 28px rgba(42,82,152,.65); }
+  }
+
+  /* ---- NAME ---- */
+  .graduate-title {
+    font-family:'IM Fell English', serif;
+    font-size:clamp(10px,2.5vw,13px);
+    letter-spacing:.4em;
+    color:var(--blue-p);
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom:6px;
+    position:relative; z-index:1;
+  }
+  .graduate-name {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(28px,7.5vw,42px);
+    font-weight:900;
+    font-style:italic;
+    color:var(--white);
+    text-align:center;
+    line-height:1.15;
+    text-shadow:0 0 40px rgba(42,82,152,.35);
+    position:relative; z-index:1;
+    margin-bottom:4px;
+  }
+  .graduate-degree {
+    font-family:'Tenor Sans', sans-serif;
+    font-size:clamp(11px,2.5vw,13px);
+    letter-spacing:.3em;
+    color:var(--silver);
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom:0;
+    position:relative; z-index:1;
+  }
+
+  /* ---- DIVIDERS ---- */
+  .div-wrap {
+    display:flex; align-items:center; gap:10px;
+    margin:18px 0;
+    position:relative; z-index:1;
+  }
+  .div-line {
+    flex:1; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(42,82,152,.45), transparent);
+  }
+  .div-gear {
+    width:10px; height:10px;
+    border:1.5px solid var(--blue-l);
+    border-radius:50%;
+    position:relative; flex-shrink:0;
+  }
+  .div-gear::before {
+    content:''; position:absolute; inset:-3px;
+    border:1px dashed rgba(42,82,152,.4);
+    border-radius:50%;
+  }
+  .div-blue2 .div-line {
+    background:linear-gradient(90deg,transparent,rgba(26,58,110,.6),transparent);
+  }
+  .div-blue2 .div-gear { border-color:var(--blue-p); }
+  .div-blue2 .div-gear::before { border-color:rgba(74,122,204,.3); }
+
+  /* ---- QUOTE ---- */
+  .quote-wrap {
+    text-align:center; padding:0 6px;
+    margin-bottom:16px;
+    position:relative; z-index:1;
+  }
+  .quote-marks {
+    font-family:'Playfair Display',serif;
+    font-size:40px; line-height:.5;
+    color:rgba(42,82,152,.3);
+    display:block;
+    margin-bottom:8px;
+  }
+  .quote-text {
+    font-family:'IM Fell English', serif;
+    font-style:italic;
+    font-size:clamp(13px,3.2vw,15px);
+    color:var(--silver-l);
+    line-height:1.75;
+  }
+  .quote-ref {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(9px,2vw,11px);
+    letter-spacing:.35em;
+    color:var(--blue-p);
+    margin-top:10px;
+    text-transform:uppercase;
+    opacity:.8;
+  }
+
+  .invite-text {
+    font-family:'IM Fell English',serif;
+    font-size:clamp(13px,3.2vw,16px);
+    color:var(--silver-l);
+    text-align:center;
+    line-height:1.7;
+    margin-bottom:16px;
+    font-style:italic;
+    position:relative; z-index:1;
+  }
+
+  /* ---- COUNTDOWN ---- */
+  .cd-wrap {
+    text-align:center; margin:0 0 22px;
+    position:relative; z-index:1;
+  }
+  .cd-label {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(8px,2vw,10px);
+    letter-spacing:.5em;
+    color:var(--blue-p);
+    text-transform:uppercase;
+    margin-bottom:14px;
+    opacity:.85;
+  }
+  .cd-row {
+    display:flex; justify-content:center; align-items:center; gap:8px;
+  }
+  .cd-unit { display:flex; flex-direction:column; align-items:center; }
+  .cd-num {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(20px,5.5vw,28px);
+    font-weight:700;
+    color:var(--white);
+    width:52px; height:52px;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,#0d1a35,#090f22);
+    border:1px solid rgba(42,82,152,.22);
+    border-radius:2px;
+    position:relative; overflow:hidden;
+    transition:border-color .3s, color .3s;
+  }
+  .cd-num::after {
+    content:''; position:absolute;
+    left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--blue-p),transparent);
+  }
+  .cd-num.tick { border-color:rgba(42,82,152,.6); color:var(--blue-p); }
+  .cd-sub {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:8px; letter-spacing:.3em;
+    color:var(--muted); margin-top:5px; text-transform:uppercase;
+  }
+  .cd-sep {
+    font-family:'Playfair Display',serif;
+    font-size:22px; color:var(--blue-p);
+    line-height:52px; opacity:.6;
+    margin-top:-8px;
+  }
+
+  /* ---- INFO GRID ---- */
+  .info-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:20px 0;
+    position:relative; z-index:1;
+  }
+  .info-cell {
+    background:rgba(42,82,152,.04);
+    border:1px solid rgba(42,82,152,.14);
+    border-radius:2px;
+    padding:14px 12px;
+    transition:border-color .3s, background .3s;
+    position:relative; overflow:hidden;
+  }
+  .info-cell::before {
+    content:''; position:absolute;
+    top:0; left:0; width:2px; height:0;
+    background:var(--blue-p);
+    transition:height .3s ease;
+  }
+  .info-cell:hover::before { height:100%; }
+  .info-cell:hover {
+    border-color:rgba(42,82,152,.35);
+    background:rgba(42,82,152,.07);
+  }
+  .cell-icon-row {
+    display:flex; align-items:center; gap:6px; margin-bottom:8px;
+  }
+  .cell-label {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(7px,1.7vw,9px);
+    letter-spacing:.45em;
+    color:var(--blue-p);
+    text-transform:uppercase; opacity:.85;
+  }
+  .cell-value {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(17px,4.2vw,22px);
+    font-weight:700;
+    color:var(--white);
+    line-height:1.2;
+  }
+  .cell-sub {
+    font-family:'IM Fell English',serif;
+    font-size:clamp(11px,2.5vw,13px);
+    color:var(--muted);
+    font-style:italic;
+    margin-top:2px;
+  }
+  .dress-dot {
+    display:inline-block; width:11px; height:11px;
+    background:#050810; border-radius:2px;
+    border:1px solid rgba(42,82,152,.5);
+    vertical-align:middle; margin-left:5px;
+  }
+
+  /* ---- LOCATION ---- */
+  .loc-block {
+    background:rgba(42,82,152,.04);
+    border:1px solid rgba(42,82,152,.14);
+    border-radius:2px;
+    padding:16px 14px;
+    margin-bottom:18px;
+    position:relative; z-index:1;
+    transition:border-color .3s, background .3s;
+    overflow:hidden;
+  }
+  .loc-block::before {
+    content:''; position:absolute;
+    top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg,transparent,var(--blue-l),transparent);
+    opacity:0; transition:opacity .3s;
+  }
+  .loc-block:hover::before { opacity:1; }
+  .loc-block:hover {
+    border-color:rgba(42,82,152,.32);
+    background:rgba(42,82,152,.06);
+  }
+  .loc-header {
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  .loc-name {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(14px,3.5vw,16px);
+    color:var(--silver-l); letter-spacing:.05em; font-weight:700;
+  }
+  .loc-address {
+    font-family:'IM Fell English',serif;
+    font-size:clamp(12px,3vw,14px);
+    color:var(--muted); line-height:1.65; font-style:italic;
+  }
+  .loc-address a {
+    color:var(--blue-p); text-decoration:none;
+    border-bottom:1px solid rgba(74,122,204,.3);
+    transition:color .2s, border-color .2s;
+  }
+  .loc-address a:hover { color:var(--white); border-color:var(--blue-p); }
+
+  /* ---- CONTACTS ---- */
+  .contacts-block {
+    background:rgba(42,82,152,.04);
+    border:1px solid rgba(42,82,152,.14);
+    border-radius:2px;
+    padding:16px 14px;
+    margin-bottom:18px;
+    position:relative; z-index:1;
+  }
+  .contacts-header {
+    display:flex; align-items:center; gap:8px; margin-bottom:12px;
+  }
+  .contacts-label {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(7px,1.7vw,9px);
+    letter-spacing:.45em;
+    color:var(--blue-p);
+    text-transform:uppercase; opacity:.85;
+  }
+  .contact-row {
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:8px;
+  }
+  .contact-row:last-child { margin-bottom:0; }
+  .contact-name {
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(10px,2.2vw,11px);
+    letter-spacing:.15em;
+    color:var(--silver);
+    text-transform:uppercase;
+    min-width:70px;
+  }
+  .contact-nums {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(11px,2.8vw,13px);
+    color:var(--white);
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+
+  /* ---- ATTENTION ---- */
+  .att-block {
+    text-align:center;
+    padding:13px;
+    margin-bottom:22px;
+    border-top:1px solid rgba(42,82,152,.12);
+    border-bottom:1px solid rgba(42,82,152,.12);
+    position:relative; z-index:1;
+  }
+  .att-label {
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(8px,1.8vw,9px);
+    letter-spacing:.45em; color:var(--blue-p);
+    text-transform:uppercase; margin-bottom:6px;
+  }
+  .att-text {
+    font-family:'IM Fell English',serif;
+    font-size:clamp(12px,3vw,14px);
+    color:var(--muted); font-style:italic;
+  }
+
+  /* ---- CONFIRM BUTTON ---- */
+  .btn-confirm {
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; padding:15px 20px;
+    background:linear-gradient(135deg, rgba(26,58,110,.25), rgba(26,58,110,.1));
+    border:1px solid rgba(26,58,110,.6);
+    border-radius:2px;
+    color:#a0c0e8;
+    font-family:'Tenor Sans',sans-serif;
+    font-size:clamp(9px,2.2vw,11px);
+    letter-spacing:.28em;
+    cursor:pointer; text-decoration:none;
+    text-transform:uppercase;
+    position:relative; overflow:hidden;
+    transition:all .3s ease;
+    z-index:1;
+  }
+  .btn-confirm::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg,transparent,rgba(42,82,152,.18),transparent);
+    transform:translateX(-100%); transition:transform .5s ease;
+  }
+  .btn-confirm:hover::before { transform:translateX(100%); }
+  .btn-confirm:hover {
+    background:linear-gradient(135deg,rgba(42,82,152,.38),rgba(42,82,152,.2));
+    border-color:var(--blue-p);
+    box-shadow:0 0 28px var(--glow-b);
+    transform:translateY(-2px); color:#fff;
+  }
+
+  /* ---- FOOTER ---- */
+  .card-footer {
+    text-align:center;
+    margin-top:26px;
+    position:relative; z-index:1;
+  }
+  .footer-sig {
+    font-family:'IM Fell English',serif;
+    font-size:clamp(12px,3vw,15px);
+    font-style:italic;
+    color:rgba(42,82,152,.6);
+    letter-spacing:.1em;
+  }
+  .footer-diamonds {
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin-top:14px;
+  }
+  .f-diamond {
+    width:5px; height:5px;
+    transform:rotate(45deg);
+  }
+  .f-diamond.blue  { background:rgba(42,82,152,.4); }
+  .f-diamond.blue2 { background:rgba(74,122,204,.3); }
+</style>
+</head>
+<body>
+
+<!-- ===================== SPLASH ===================== -->
+<div id="splash">
+  <div class="splash-particles" id="sp-container"></div>
+
+  <div class="splash-emblem">
+    <div class="outer-ring"></div>
+    <div class="inner-ring"></div>
+    <div class="splash-icon">
+      <svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(42,82,152,.2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <polygon points="50,18 90,34 50,50 10,34" fill="#2a5298" opacity=".95"/>
+        <polygon points="50,18 90,34 50,50 10,34" fill="url(#capGrad)" opacity=".6"/>
+        <rect x="70" y="34" width="3.5" height="20" rx="1.8" fill="#1a3060"/>
+        <circle cx="71.75" cy="56" r="5.5" fill="#1a3a6e" opacity=".9"/>
+        <path d="M30 40 Q30 62 50 66 Q70 62 70 40" fill="none" stroke="#2a5298" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M50 50 L50 66" stroke="#1a3060" stroke-width="2" stroke-linecap="round"/>
+        <line x1="50" y1="72" x2="42" y2="88" stroke="rgba(42,82,152,.55)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="50" y1="72" x2="58" y2="88" stroke="rgba(42,82,152,.55)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="50" cy="72" r="2" fill="#2a5298" opacity=".75"/>
+        <defs>
+          <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#000" stop-opacity=".0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <div class="splash-title">Celebração · Graduação</div>
+  <div class="splash-name">Eng. José Tchacala</div>
+  <div class="splash-divider"></div>
+  <div class="splash-hint">Toque para abrir</div>
+</div>
+
+<!-- ===================== INVITE ===================== -->
+<div id="invite">
+  <div class="card">
+    <div class="blueprint-header"></div>
+
+    <div class="card-inner">
+      <div class="bracket tl"></div>
+      <div class="bracket tr"></div>
+      <div class="bracket bl"></div>
+      <div class="bracket br"></div>
+
+      <!-- Eyebrow -->
+      <div class="header-eyebrow">Celebração de Vida &amp; Graduação</div>
+
+      <!-- Photo -->
+      <div class="photo-wrap">
+        <div class="hex-orbit"></div>
+        <div class="hex-frame">
+          <div class="hex-inner">
+            <div class="photo-silhouette">
+              <svg width="60%" height="60%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="32" r="20" fill="rgba(42,82,152,.35)"/>
+                <ellipse cx="50" cy="80" rx="30" ry="22" fill="rgba(42,82,152,.25)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="eng-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" stroke="#a0c0e8" stroke-width="2"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="#a0c0e8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="graduate-title">Engenheiro</div>
+      <div class="graduate-name">José Tchacala</div>
+      <div class="graduate-degree">Formando · Graduado</div>
+
+      <div class="div-wrap">
+        <div class="div-line"></div>
+        <div class="div-gear"></div>
+        <div class="div-line"></div>
+      </div>
+
+      <!-- Invite text -->
+      <div class="invite-text">
+        Tenho a honra de convidá-lo<br>
+        a participar nessa celebração dupla<br>
+        <strong style="color:var(--blue-p); font-style:normal; letter-spacing:.1em;">Vida &amp; Graduação!</strong>
+      </div>
+
+      <!-- Quote -->
+      <div class="quote-wrap">
+        <span class="quote-marks">"</span>
+        <div class="quote-text">
+          O temor do Senhor é o princípio da sabedoria,<br>
+          e o conhecimento do Santo é entendimento.
+        </div>
+        <div class="quote-ref">— Provérbios 9:10</div>
+      </div>
+
+      <div class="div-wrap div-blue2">
+        <div class="div-line"></div>
+        <div class="div-gear"></div>
+        <div class="div-line"></div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="cd-wrap">
+        <div class="cd-label">Contagem Regressiva</div>
+        <div class="cd-row">
+          <div class="cd-unit">
+            <div class="cd-num" id="cd-days">--</div>
+            <div class="cd-sub">Dias</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit">
+            <div class="cd-num" id="cd-hours">--</div>
+            <div class="cd-sub">Horas</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit">
+            <div class="cd-num" id="cd-mins">--</div>
+            <div class="cd-sub">Min</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit">
+            <div class="cd-num" id="cd-secs">--</div>
+            <div class="cd-sub">Seg</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Grid -->
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="cell-icon-row">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="4" width="18" height="17" rx="2" stroke="#4a7acc" stroke-width="1.8"/>
+              <line x1="3" y1="9" x2="21" y2="9" stroke="#4a7acc" stroke-width="1.8"/>
+              <line x1="8" y1="2" x2="8" y2="6" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="16" y1="2" x2="16" y2="6" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="12" cy="15" r="1.5" fill="#2a5298"/>
+            </svg>
+            <div class="cell-label">Data &amp; Hora</div>
+          </div>
+          <div class="cell-value">27.06.2026</div>
+          <div class="cell-sub">Sábado · 18h00</div>
+        </div>
+        <div class="info-cell">
+          <div class="cell-icon-row">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3C12 3 14 3 14 5C14 6.5 12 7 12 7" stroke="#4a7acc" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M12 7L4 14V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V14L12 7Z" stroke="#2a5298" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+            <div class="cell-label">Dress Code</div>
+          </div>
+          <div class="cell-value">Preto <span class="dress-dot"></span></div>
+          <div class="cell-sub">Traje Formal</div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="loc-block">
+        <div class="loc-header">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="rgba(26,58,110,.3)" stroke="#4a7acc" stroke-width="1.8"/>
+            <circle cx="12" cy="9" r="2.5" fill="#4a7acc"/>
+          </svg>
+          <div class="cell-label">Local</div>
+        </div>
+        <div class="loc-name">Residência dos Pais</div>
+        <div class="loc-address">
+          Zango 4, Rua do Tanque 7<br>
+          Depois da Rua da Sagres
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="contacts-block">
+        <div class="contacts-header">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#4a7acc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="contacts-label">Contactos para Apoio</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-name">Tchacala</div>
+          <div class="contact-nums">923 775 925 &nbsp;·&nbsp; 948 800 861 &nbsp;·&nbsp; 931 504 758</div>
+        </div>
+      </div>
+
+      <!-- Attention -->
+      <div class="att-block">
+        <div class="att-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="rgba(26,58,110,.3)" stroke="#4a7acc" stroke-width="1.8"/>
+            <line x1="12" y1="9" x2="12" y2="13" stroke="#4a7acc" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="17" r="1" fill="#4a7acc"/>
+          </svg>
+          Atenção
+        </div>
+        <div class="att-text">Convidado não convida</div>
+      </div>
+
+      <!-- Confirm -->
+      <a class="btn-confirm" href="https://wa.me/244923775925/?text=Presença%20confirmada%20!" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="#a0c0e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Confirmar Presença
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M13 6L19 12L13 18" stroke="#a0c0e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- Footer -->
+      <div class="card-footer">
+        <div class="footer-sig">Com amor, Eng. José Tchacala</div>
+        <div class="footer-diamonds">
+          <div class="f-diamond blue"></div>
+          <div class="f-diamond blue2"></div>
+          <div class="f-diamond blue"></div>
+        </div>
+      </div>
+
+    </div><!-- end card-inner -->
+    <div class="blueprint-footer"></div>
+  </div><!-- end card -->
+</div><!-- end invite -->
+
+<script>
+  /* Particles */
+  const spc = document.getElementById('sp-container');
+  for (let i = 0; i < 35; i++) {
+    const p = document.createElement('div');
+    p.className = 'sp';
+    p.style.left = Math.random() * 100 + '%';
+    const sz = (Math.random() * 3 + 1) + 'px';
+    p.style.width = p.style.height = sz;
+    const light = Math.random() > .5;
+    p.style.background = light ? '#2a5298' : '#1a3a6e';
+    p.style.boxShadow = light ? '0 0 5px rgba(42,82,152,.9)' : '0 0 5px rgba(26,58,110,.9)';
+    p.style.animationDuration = (Math.random() * 10 + 7) + 's';
+    p.style.animationDelay   = (Math.random() * 14) + 's';
+    spc.appendChild(p);
+  }
+
+  /* Splash click */
+  document.getElementById('splash').addEventListener('click', function(e) {
+    const r = document.createElement('div');
+    r.className = 'ripple';
+    r.style.cssText = `width:120px;height:120px;left:${e.clientX-60}px;top:${e.clientY-60}px`;
+    this.appendChild(r);
+    setTimeout(() => r.remove(), 800);
+
+    this.classList.add('hide');
+    setTimeout(() => {
+      this.style.display = 'none';
+      const inv = document.getElementById('invite');
+      inv.style.display = 'block';
+      setTimeout(() => inv.classList.add('visible'), 10);
+      startCountdown();
+    }, 950);
+  });
+
+  /* Countdown */
+  function startCountdown() {
+    const target = new Date('2026-06-27T18:00:00');
+    const pad = n => String(n).padStart(2,'0');
+
+    function tick() {
+      const diff = target - new Date();
+      const el = id => document.getElementById(id);
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => el(id).textContent = '00');
+        return;
+      }
+      el('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+      el('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      el('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+      const prev = el('cd-secs').textContent;
+      const nv   = pad(Math.floor((diff % 60000) / 1000));
+      el('cd-secs').textContent = nv;
+      if (prev !== nv) {
+        el('cd-secs').classList.add('tick');
+        setTimeout(() => el('cd-secs').classList.remove('tick'), 280);
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+</script>
+</body>
+</html>
